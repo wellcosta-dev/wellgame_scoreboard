@@ -1,0 +1,236 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border-radius: 0 !important;
+  user-select: none;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: transparent;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+
+.hidden { display: none !important; }
+
+#overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  pointer-events: none;
+  background: transparent;
+}
+
+/* No full-screen dim/blur — CEF can't blur the game world; it just paints black */
+.backdrop {
+  display: none;
+}
+
+.panel {
+  position: relative;
+  width: min(28vw, 520px);
+  min-width: 400px;
+  max-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+  color: #ffffff;
+  background: transparent;
+}
+
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 6px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.header-title {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  min-width: 0;
+}
+
+.brand {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #e8e8ec;
+  line-height: 1;
+}
+
+.header-count {
+  font-size: 22px;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+  color: #e8e8ec;
+  flex-shrink: 0;
+}
+
+.cols {
+  display: grid;
+  grid-template-columns: 8% 1fr 18% 18%;
+  align-items: center;
+  height: 35px;
+  padding: 0 10px 0 0;
+  background: #1e1e22;
+  border: 1px solid #333333;
+  border-bottom: none;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #aaaaaa;
+}
+
+.col-id { text-align: right; padding-right: 10px; }
+.col-name { text-align: left; padding-left: 4px; }
+.col-level { text-align: left; }
+.col-ping { text-align: left; }
+
+.fill-track {
+  height: 4px;
+  background: #666666;
+  width: 100%;
+  overflow: hidden;
+}
+
+.fill-bar {
+  height: 100%;
+  width: 0%;
+  background: #06b6d4;
+  transition: width 0.25s ease;
+}
+
+.rows {
+  overflow: hidden;
+  border: 1px solid #333333;
+  border-top: none;
+  background: #1a1a1e;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 8% 1fr 18% 18%;
+  align-items: center;
+  height: 35px;
+  padding: 0 28px 0 0;
+  background: #26262a;
+  border-bottom: 2px solid #1a1a1e;
+  position: relative;
+  font-size: 13px;
+  font-weight: 400;
+  color: #ffffff;
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.row.is-self {
+  font-weight: 600;
+}
+
+.row.is-helper {
+  color: #c4b5fd;
+}
+
+.row.is-offline {
+  color: #666666;
+}
+
+.row .c-id {
+  text-align: right;
+  padding-right: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+.row .c-name {
+  text-align: left;
+  padding-left: 4px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.row .c-level {
+  text-align: left;
+  white-space: nowrap;
+}
+
+.row .c-ping {
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.signal {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 14px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2px;
+}
+
+.signal span {
+  flex: 1;
+  background: currentColor;
+  opacity: 0.25;
+}
+
+.signal span:nth-child(1) { height: 35%; }
+.signal span:nth-child(2) { height: 55%; }
+.signal span:nth-child(3) { height: 75%; }
+.signal span:nth-child(4) { height: 100%; }
+
+.signal.bars-1 span:nth-child(1),
+.signal.bars-2 span:nth-child(1),
+.signal.bars-2 span:nth-child(2),
+.signal.bars-3 span:nth-child(1),
+.signal.bars-3 span:nth-child(2),
+.signal.bars-3 span:nth-child(3),
+.signal.bars-4 span:nth-child(1),
+.signal.bars-4 span:nth-child(2),
+.signal.bars-4 span:nth-child(3),
+.signal.bars-4 span:nth-child(4) {
+  opacity: 1;
+}
+
+.signal.hidden { display: none; }
+
+.ping-good { color: #06b6d4; }
+.ping-ok { color: #f59e0b; }
+.ping-warn { color: #f97316; }
+.ping-bad { color: #e74c3c; }
+.afk-mild { color: #aaaaaa; }
+.afk-warn { color: #f97316; }
+.afk-bad { color: #e74c3c; }

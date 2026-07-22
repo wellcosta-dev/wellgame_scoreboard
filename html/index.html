@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/style.css" />
+  <title>Wellcosta Scoreboard</title>
+</head>
+<body>
+  <div id="overlay" class="hidden">
+    <div class="panel" id="panel">
+      <header class="header">
+        <div class="header-title">
+          <span class="brand" id="brand">WELLCOSTA</span>
+          <span class="title" id="title">SCOREBOARD</span>
+        </div>
+        <div class="header-count" id="count">0/0</div>
+      </header>
+
+      <div class="cols" id="cols">
+        <div class="col col-id">ID</div>
+        <div class="col col-name">Név</div>
+        <div class="col col-level">Szint</div>
+        <div class="col col-ping">Ping</div>
+      </div>
+
+      <div class="fill-track">
+        <div class="fill-bar" id="fill"></div>
+      </div>
+
+      <div class="rows" id="rows"></div>
+    </div>
+  </div>
+  <script src="js/app.js"></script>
+</body>
+</html>
